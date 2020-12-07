@@ -20,3 +20,6 @@ class TestNote(unittest.TestCase):
 
     def test_note_type_error(self):
         self.assertRaisesRegex(TypeError, 'Bad type note', Note, "test", True)
+
+    def test_note_bad_range(self):
+        self.assertRaisesRegex(ValueError, 'Note bad values', Note, "testRange", 6.5)
