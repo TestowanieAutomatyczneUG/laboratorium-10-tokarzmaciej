@@ -17,3 +17,6 @@ class TestNote(unittest.TestCase):
 
     def test_name_value_null(self):
         self.assertRaisesRegex(ValueError, 'Name values can not be '' or none', Note, None, 4.5)
+
+    def test_note_type_error(self):
+        self.assertRaisesRegex(TypeError, 'Bad type note', Note, "test", True)
