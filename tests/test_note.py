@@ -8,3 +8,6 @@ class TestNote(unittest.TestCase):
 
     def test_check_note_positive(self):
         self.assertEqual(Note("testNote", 2.5).get_note(), 2.5)
+
+    def test_name_type_error(self):
+        self.assertRaisesRegex(TypeError, 'Bad type name', Note, False, 3.4)
