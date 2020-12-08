@@ -21,6 +21,13 @@ class testNotesService(TestCase):
         result = test_object.add
         self.assertRaises(TypeError, result, False)
 
+    @patch.object(NotesStorage, 'getAllNotesOf')
+    def test_add_average(self, mock_method):
+        mock_method.return_value = [Note("Maciej", 4.0), Note("Maciej", 5.0), Note("Maciej", 3.0)]
+        test_object = NotesService()
+        result = test_object.averageOf("Maciej")
+        self.assertEqual(result, 4)
+
 
 if __name__ == '__main__':
     main()
