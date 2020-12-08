@@ -14,6 +14,13 @@ class testNotesService(TestCase):
         result = test_object.add(Note("Maciej", 4.5))
         self.assertEqual(result, Note("Maciej", 4.5).note)
 
+    @patch.object(NotesStorage, 'add')
+    def test_add_note_type_error(self, mock_method):
+        mock_method.side_effect = TypeError
+        test_object = NotesService()
+        result = test_object.add
+        self.assertRaises(TypeError, result, False)
+
 
 if __name__ == '__main__':
     main()
