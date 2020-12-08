@@ -28,6 +28,13 @@ class testNotesService(TestCase):
         result = test_object.averageOf("Maciej")
         self.assertEqual(result, 4)
 
+    @patch.object(NotesStorage, 'getAllNotesOf')
+    def test_add_average_exception(self, mock_method):
+        mock_method.return_value = []
+        test_object = NotesService()
+        result = test_object.averageOf
+        self.assertRaisesRegex(Exception, "This person has not notes", result, "Maciej")
+
 
 if __name__ == '__main__':
     main()
