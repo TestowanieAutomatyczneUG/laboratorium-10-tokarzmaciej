@@ -22,25 +22,32 @@ class testNotesService(TestCase):
         self.assertRaises(TypeError, result, False)
 
     @patch.object(NotesStorage, 'getAllNotesOf')
-    def test_add_average(self, mock_method):
+    def test_average(self, mock_method):
         mock_method.return_value = [Note("Maciej", 4.0), Note("Maciej", 5.0), Note("Maciej", 3.0)]
         test_object = NotesService()
         result = test_object.averageOf("Maciej")
         self.assertEqual(result, 4)
 
     @patch.object(NotesStorage, 'getAllNotesOf')
-    def test_add_average_exception(self, mock_method):
+    def test_average_exception(self, mock_method):
         mock_method.return_value = []
         test_object = NotesService()
         result = test_object.averageOf
         self.assertRaisesRegex(Exception, "This person has not notes", result, "Maciej")
 
     @patch.object(NotesStorage, 'getAllNotesOf')
-    def test_add_average_value_error(self, mock_method):
+    def test_average_value_error(self, mock_method):
         mock_method.side_effect = ValueError
         test_object = NotesService()
         result = test_object.averageOf
         self.assertRaises(ValueError, result, 13)
+
+    @patch.object(NotesStorage, 'clear')
+    def test_clear(self, mock_method):
+        mock_method.return_value = "data cleaned"
+        test_object = NotesService()
+        result = test_object.clear()
+        self.assertEqual(result, "data cleaned")
 
 
 if __name__ == '__main__':
